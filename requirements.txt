@@ -1,4 +1,6 @@
 einops
+tabulate
 numpy
-rich
+tqdm
+tensorboard
 fvcore

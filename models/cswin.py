@@ -163,15 +163,7 @@ class CSWin(nn.Module):
 
     def _init_weights(self, pretrained: str = None) -> None:
         if pretrained:
-            try:
-                print(f"Loading imagenet pretrained weights from {pretrained}")
-            except RuntimeError:
-                pretrained_dict = torch.load(pretrained, map_location='cpu')['state_dict_ema']
-                pretrained_dict.popitem()   # remove bias
-                pretrained_dict.popitem()   # remove weight
-                self.load_state_dict(pretrained_dict, strict=False)
-            finally:
-                print(f"Loaded imagenet pretrained from {pretrained}")
+            self.load_state_dict(torch.load(pretrained, map_location='cpu')['state_dict_ema'])
         else:
             for m in self.modules():
                 if isinstance(m, (nn.Conv2d, nn.Linear)):

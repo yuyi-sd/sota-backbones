@@ -7,8 +7,15 @@ DATASET:
 MODEL:
   NAME: ResT
   VARIANT: S
-  PRETRAINED: 'checkpoints/rest/rest_small.pth'
-  FREEZE: false
+
+KD:
+  ENABLE: false
+  ALPHA: 0.9
+  TEMP: 10
+  TEACHER:
+    NAME: ResT
+    VARIANT: L
+    PRETRAINED: 'checkpoints/rest/rest_large.pth'
 
 TRAIN:
   IMAGE_SIZE: [224, 224]

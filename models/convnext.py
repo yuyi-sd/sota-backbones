@@ -105,15 +105,7 @@ class ConvNeXt(nn.Module):
 
     def _init_weights(self, pretrained: str = None) -> None:
         if pretrained:
-            try:
-                self.load_state_dict(torch.load(pretrained, map_location='cpu')['model'])
-            except RuntimeError:
-                pretrained_dict = torch.load(pretrained, map_location='cpu')['model']
-                pretrained_dict.popitem()   # remove bias
-                pretrained_dict.popitem()   # remove weight
-                self.load_state_dict(pretrained_dict, strict=False)
-            finally:
-                print(f"Loaded imagenet pretrained from {pretrained}")
+            self.load_state_dict(torch.load(pretrained, map_location='cpu')['model'])
         else:
             for n, m in self.named_modules():
                 if isinstance(m, nn.Linear):
